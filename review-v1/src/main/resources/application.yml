@@ -1,0 +1,6 @@
+spring:
+  application:
+    name:
+      review-v1
+server:
+  port: 8081
