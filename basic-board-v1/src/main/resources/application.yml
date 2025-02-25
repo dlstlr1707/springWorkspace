@@ -4,4 +4,4 @@ spring:
     name:
       basic-board-v1
 server:
-  port: 8000
+  port: 8081
