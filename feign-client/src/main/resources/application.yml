@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: feign-client
+feign-data:
+  url: "httl://localhost:9903"
+server:
+  port: 9901

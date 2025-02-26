@@ -1,4 +1,4 @@
-package com.example.basicboardv2.dto;
+package com.example.feigndata.dto;
 
 import lombok.Getter;
 

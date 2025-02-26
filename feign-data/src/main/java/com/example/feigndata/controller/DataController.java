@@ -1,6 +1,6 @@
-package com.example.basicboardv2.controller;
+package com.example.feigndata.controller;
 
-import com.example.basicboardv2.dto.DataResponseDTO;
+import com.example.feigndata.dto.DataResponseDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

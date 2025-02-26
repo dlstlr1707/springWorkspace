@@ -1,10 +1,10 @@
-package com.example.basicboardv2;
+package com.example.feigndata;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BasicBoardV2ApplicationTests {
+class FeignDataApplicationTests {
 
     @Test
     void contextLoads() {
