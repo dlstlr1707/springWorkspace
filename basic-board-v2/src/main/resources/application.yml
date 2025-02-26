@@ -1,0 +1,8 @@
+spring:
+  application:
+    name:
+      basic-board-v2
+
+
+server:
+  port : 9983
