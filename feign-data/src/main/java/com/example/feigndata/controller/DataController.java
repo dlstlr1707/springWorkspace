@@ -6,7 +6,9 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -50,11 +52,32 @@ public class DataController {
     ){
         log.info("[Feign Data] update");
         DataResponseDTO dataResponseDTO = dataStore.get(id);
-
+        System.out.println(dataResponseDTO.getName());
+        System.out.println(dataResponseDTO.getValue());
         dataResponseDTO.setName(dataRequestDTO.getName());
         dataResponseDTO.setValue(dataRequestDTO.getValue());
         dataStore.put(id, dataResponseDTO);
-
         return dataResponseDTO;
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteData(@PathVariable Long id){
+        log.info("[Feign Data] delete");
+
+        dataStore.remove(id);
+        for(int i=0; i<dataStore.size(); i++){
+            System.out.println(dataStore.get(i));
+        }
+        return "Excute delete";
+    }
+
+    @GetMapping
+    public ArrayList<DataResponseDTO> getData(){
+        ArrayList<DataResponseDTO> arrayList = new ArrayList<>();
+        for(Long i = 1L; i<= dataStore.size(); i++){
+            arrayList.add(dataStore.get(i));
+        }
+        log.info("[Feign Data] all select");
+        return arrayList;
     }
 }
