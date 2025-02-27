@@ -19,7 +19,7 @@ public class CookieController {
 
     private final List<UserDTO> users;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String renderMain(
             HttpServletRequest request,
             Model model
@@ -72,7 +72,7 @@ public class CookieController {
             cookie.setHttpOnly(true);
 
             response.addCookie(cookie);
-            return "redirect:/";
+            return "redirect:/main";
         }else{
             return "redirect:/login";
         }
@@ -98,7 +98,7 @@ public class CookieController {
 
         response.addCookie(cookie);
 
-        return "redirect:/";
+        return "redirect:/main";
     }
     @GetMapping("/logout")
     public String logoutExc(
@@ -113,6 +113,6 @@ public class CookieController {
 
         model.addAttribute("message","쿠키가 삭제 되었습니다.");
 
-        return "redirect:/";
+        return "redirect:/main";
     }
 }

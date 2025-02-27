@@ -16,7 +16,7 @@ import java.util.List;
 public class SessionController {
     private final List<UserDTO> users;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String renderMain(
             HttpSession session,
             Model model
@@ -53,7 +53,7 @@ public class SessionController {
         if(foundUser != null){
             session.setAttribute("username", foundUser.getUsername());
             model.addAttribute("username", foundUser.getUsername());
-            return "redirect:/";
+            return "redirect:main";
         }else{
             return "redirect:login";
         }
@@ -71,11 +71,11 @@ public class SessionController {
         users.add(newUser);
         session.setAttribute("username", username);
         model.addAttribute("username", username);
-        return "redirect:/";
+        return "redirect:main";
     }
     @GetMapping("/logout")
     public String logoutExc(HttpSession session){
         session.invalidate();
-        return "redirect:/";
+        return "redirect:main";
     }
 }

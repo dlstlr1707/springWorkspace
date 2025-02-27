@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Slf4j
-@Component
+//@Component
 public class LoggingFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
