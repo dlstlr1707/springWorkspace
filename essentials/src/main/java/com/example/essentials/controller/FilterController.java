@@ -9,4 +9,9 @@ public class FilterController {
     public String hello() {
         return "Hello";
     }
+
+    @GetMapping("/api/hello")
+    public String apiHello() {
+        return "api Hello";
+    }
 }
