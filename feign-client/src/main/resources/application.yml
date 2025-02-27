@@ -5,3 +5,8 @@ feign-data:
   url: "http://localhost:9983"
 server:
   port: 9981
+
+weather:
+  api:
+    url: "https://apihub.kma.go.kr/api/typ02/openApi/VilageFcstInfoService_2.0/getVilageFcst"
+    key: "qFa9zsi_T0CWvc7Ivz9ANQ"

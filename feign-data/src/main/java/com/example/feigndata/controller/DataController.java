@@ -80,4 +80,25 @@ public class DataController {
         log.info("[Feign Data] all select");
         return arrayList;
     }
+
+    // 강사님 코드
+    @GetMapping("/all")
+    public List<DataResponseDTO> getAll(){
+        log.info("[Feign Data] getAll");
+        List<DataResponseDTO> results = new ArrayList<>();
+        for(Long id : dataStore.keySet()){
+            DataResponseDTO dataResponseDTO = dataStore.get(id);
+            results.add(dataResponseDTO);
+        }
+        return results;
+    }
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id){
+        log.info("[Feign Data] delete");
+        DataResponseDTO removed = dataStore.remove(id);
+        if(removed != null){
+            // 예외처리
+        }
+        return "Data with ID" + removed.getId() + " was deleted";
+    }
 }
