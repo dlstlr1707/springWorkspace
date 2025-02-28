@@ -1,4 +1,4 @@
-package com.example.basicboardv1;
+package com.example.spring.basicboardv1;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
