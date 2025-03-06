@@ -9,7 +9,7 @@ $(document).ready(()=>{
         let userName = $('#user_name').val();
         let role = $('#role').val();
 
-        let signData = {
+        let signUpData = {
             userId : userId,
             password : password,
             userName : userName,
@@ -19,7 +19,7 @@ $(document).ready(()=>{
         $.ajax({
             type: 'POST',
             url: '/join',
-            data: JSON.stringify(signData),
+            data: JSON.stringify(signUpData),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: (response)=>{
