@@ -9,6 +9,7 @@ import com.example.basicboardv2.dto.SignUpResponseDTO;
 import com.example.basicboardv2.model.Member;
 import com.example.basicboardv2.service.MemberService;
 import com.example.basicboardv2.util.CookieUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,12 +64,16 @@ public class MemberApiController {
 
         CookieUtil.addCookie(response,"refreshToken",refreshToken, 7*24*60*60);
 
-
         return SignInResponseDTO.builder()
                 .isLoggedIn(true)
                 .token(accessToken)
                 .userId(member.getUserId())
                 .userName(member.getUserName())
                 .build();
+    }
+
+    @PostMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtil.deleteCookie(request,response,"refreshToken");
     }
 }

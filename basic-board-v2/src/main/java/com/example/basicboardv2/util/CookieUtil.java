@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class CookieUtil {
 
     // 쿠키 추가
+    // 서버단에 쿠키 저장
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setHttpOnly(true); // JavaScript로 접근 불가

@@ -42,10 +42,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(
+                                        new AntPathRequestMatcher("/","Get"),
                                         new AntPathRequestMatcher("/member/join","Get"),
                                         new AntPathRequestMatcher("/member/login","Get"),
                                         new AntPathRequestMatcher("/join","Post"),
-                                        new AntPathRequestMatcher("/login","Post")
+                                        new AntPathRequestMatcher("/login","Post"),
+                                        new AntPathRequestMatcher("/logout","Post")
                                 )
                                 .permitAll()
                                 .anyRequest().authenticated()
