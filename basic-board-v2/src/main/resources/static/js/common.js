@@ -6,3 +6,18 @@ let checkToken = () =>{
     // 추후 살아있는지 여부에 따라 추가 로직 필요
 
 }
+
+let getUserInfo = () => {
+    return new Promise((resolve,reject)=>{
+        $.ajax({
+            type: 'GET',
+            url: '/user/info',
+            success:(response)=>{
+                resolve(response);
+            },
+            error: (xhr)=>{
+                reject(xhr);
+            }
+        })
+    });
+}
