@@ -7,6 +7,19 @@ let checkToken = () =>{
 
 }
 
+let setupAjax = () => {
+    // 모든 Ajax 요청에 JWT Access Token을 포함 시킴
+    $.ajaxSetup({
+        beforeSend: (xhr)=>{
+            let token = localStorage.getItem('accessToken');
+            if(token){
+                xhr.setRequestHeader('Authorization','Bearer ' + token);
+            }
+        }
+    })
+}
+
+
 let getUserInfo = () => {
     return new Promise((resolve,reject)=>{
         $.ajax({
