@@ -1,6 +1,6 @@
-package com.example.basicboardv2.config;
+package com.example.basicboardv2prac.config;
 
-import com.example.basicboardv2.config.filter.TokenAuthenticationFilter;
+import com.example.basicboardv2prac.config.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,31 +36,29 @@ public class WebSecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(
-                        // 세션 사용하지 않음을 명시함
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(
-                                        new AntPathRequestMatcher("/","GET"),
-                                        new AntPathRequestMatcher("/member/join","GET"),
-                                        new AntPathRequestMatcher("/member/login","GET"),
-                                        new AntPathRequestMatcher("/join","POST"),
-                                        new AntPathRequestMatcher("/login","POST"),
-                                        new AntPathRequestMatcher("/logout","POST")
+                                        new AntPathRequestMatcher("/", "GET"),
+                                        new AntPathRequestMatcher("/member/join", "GET"),
+                                        new AntPathRequestMatcher("/member/login", "GET"),
+                                        new AntPathRequestMatcher("/join", "POST"),
+                                        new AntPathRequestMatcher("/login", "POST"),
+                                        new AntPathRequestMatcher("/logout", "POST")
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .logout(AbstractHttpConfigurer::disable)
-                // JWT 필터 Security쪽 필터 실행되기 전으로 등록
+                // JWT 필터 추가
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         ;
         return http.build();
     }
 
-    // form로그인 방식이 아니고 수동이면 해줘야함
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration configuration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 
@@ -68,4 +66,5 @@ public class WebSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
