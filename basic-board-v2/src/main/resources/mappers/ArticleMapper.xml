@@ -11,4 +11,8 @@
         <result property="updated" column="updated"/>
         <result property="filePath" column="file_path"/>
     </resultMap>
+    <insert id="saveArticle" parameterType="Article">
+        INSERT INTO article(user_id,title,content,file_path)
+        VALUES (#{userId},#{title},#{content},#{filePath});
+    </insert>
 </mapper>

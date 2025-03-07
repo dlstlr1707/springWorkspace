@@ -21,6 +21,6 @@ public class BoardApiController {
             @RequestParam("hiddenUserId") String userId,
             @RequestParam("file") MultipartFile file
     ){
-
+        boardService.saveArticle(userId, title, content, file);
     }
 }
