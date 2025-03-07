@@ -8,7 +8,7 @@ $(document).ready(()=>{
         console.log('user info :: ' + userInfo);
         $('#hiddenUserName').val(userInfo.userName);
         $('#hiddenUserId').val(userInfo.userId);
-        $('#user_id').val(userInfo.userId);
+        $('#userId').val(userInfo.userId);
     }).catch((error)=>{
         console.error('Error get user info : ',error);
     });

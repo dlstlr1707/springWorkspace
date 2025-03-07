@@ -1,8 +1,65 @@
 $(document).ready(()=>{
 
     checkToken();
-
+    setupAjax();
+    getUserInfo().then((userInfo)=>{
+        $('#welcome-message').text(userInfo.userName + '님 환영합니다!');
+        $('#hiddenUserId').val(userInfo.userId);
+        $('#hiddenUserName').val(userInfo.userName);
+    }).catch((error)=>{
+        console.error('board list user info error :: ',error);
+    });
+    getBoards();
 });
+
+let getBoards = () => {
+    let currentPage = 1;
+    const pageSize = 10;
+
+    loadBoard(currentPage,pageSize);
+}
+
+let loadBoard = (page,size) => {
+    $.ajax({
+       type: 'GET',
+       url: '/api/board',
+       data: {
+           page: page,
+           size: size
+       },
+        success: (response) => {
+            $('#boardContent').empty();
+
+            if(response.articles.length <= 0){
+                $('#boardContent').append(
+                  `<tr>
+                        <td colspan="4" style="text-align: center">글이 존재하지 않습니다.</td>
+                    </tr>`
+                );
+            }else{
+                response.articles.forEach((article)=>{
+                    $('#boardContent').append(
+                      `
+                        <tr>
+                            <td>${article.id}</td>
+                            <td><a href="/detail?id=${article.id}">${article.title}</a></td>
+                            <td>${article.userId}</td>
+                            <td>${article.created}</td>
+                        </tr>
+                      `
+                    );
+                });
+            }
+
+            $('#pageInfo').text(page);
+            $('#prevPage').props('disabled',page === 1 );
+            $('#nextPage').props('disabled',page === response.last );
+        },
+        error: (error) => {
+           console.error('board list error :: ',error);
+        }
+    });
+}
 
 let logout = () => {
     $.ajax({

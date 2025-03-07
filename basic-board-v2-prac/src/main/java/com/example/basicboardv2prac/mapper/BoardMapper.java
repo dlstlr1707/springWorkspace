@@ -1,7 +1,7 @@
-package com.example.basicboardv2.mapper;
+package com.example.basicboardv2prac.mapper;
 
-import com.example.basicboardv2.model.Article;
-import com.example.basicboardv2.model.Paging;
+import com.example.basicboardv2prac.model.Article;
+import com.example.basicboardv2prac.model.Paging;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

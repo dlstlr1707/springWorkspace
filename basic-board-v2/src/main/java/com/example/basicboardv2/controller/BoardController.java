@@ -14,4 +14,6 @@ public class BoardController {
     public String boardWrite(){
         return "board-write";
     }
+    //@GetMapping("/detail")
+    //@GetMapping("/update")
 }

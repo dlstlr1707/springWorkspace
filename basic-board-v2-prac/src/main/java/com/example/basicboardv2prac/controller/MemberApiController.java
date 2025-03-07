@@ -2,10 +2,7 @@ package com.example.basicboardv2prac.controller;
 
 import com.example.basicboardv2prac.config.jwt.TokenProvider;
 import com.example.basicboardv2prac.config.security.CustomUserDetails;
-import com.example.basicboardv2prac.dto.SignInRequestDTO;
-import com.example.basicboardv2prac.dto.SignInResponseDTO;
-import com.example.basicboardv2prac.dto.SignUpRequestDTO;
-import com.example.basicboardv2prac.dto.SignUpResponseDTO;
+import com.example.basicboardv2prac.dto.*;
 import com.example.basicboardv2prac.model.Member;
 import com.example.basicboardv2prac.service.MemberService;
 import com.example.basicboardv2prac.util.CookieUtil;
@@ -17,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,5 +66,16 @@ public class MemberApiController {
     @PostMapping("/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         CookieUtil.deleteCookie(request,response,"refreshToken");
+    }
+
+    @GetMapping("/user/info")
+    public UserInfoResponseDTO getUserInfo(HttpServletRequest request){
+        Member member = (Member) request.getAttribute("member");
+        return UserInfoResponseDTO.builder()
+                .id(member.getId())
+                .userId(member.getUserId())
+                .userName(member.getUserName())
+                .role(member.getRole())
+                .build();
     }
 }

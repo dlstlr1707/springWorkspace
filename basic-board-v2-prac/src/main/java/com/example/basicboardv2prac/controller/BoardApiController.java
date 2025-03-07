@@ -1,8 +1,8 @@
-package com.example.basicboardv2.controller;
+package com.example.basicboardv2prac.controller;
 
-import com.example.basicboardv2.dto.BoardListResponseDTO;
-import com.example.basicboardv2.model.Article;
-import com.example.basicboardv2.service.BoardService;
+import com.example.basicboardv2prac.dto.BoardListResponseDTO;
+import com.example.basicboardv2prac.model.Article;
+import com.example.basicboardv2prac.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,20 +17,17 @@ public class BoardApiController {
 
     @GetMapping
     public BoardListResponseDTO getBoards(
-            @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size
+            @RequestParam(name = "page",defaultValue = "1") int page,
+            @RequestParam(name = "size",defaultValue = "10") int size
     ) {
-        // 게시글 목록 가져오기
-        List<Article> boards = boardService.getBoardArticles(page, size);
-        
-        // 전체 게시글 수 가져오기
+        List<Article> articles = boardService.getBoardArticles(page, size);
+
         int totalArticleCnt = boardService.getTotalArticleCnt();
 
-        // 마지막 페이지 여부 계산
         boolean last = (page * size) >= totalArticleCnt;
 
         return BoardListResponseDTO.builder()
-                .articles(boards)
+                .articles(articles)
                 .last(last)
                 .build();
     }
@@ -42,7 +39,6 @@ public class BoardApiController {
             @RequestParam("hiddenUserId") String userId,
             @RequestParam("file") MultipartFile file
     ){
-        boardService.saveArticle(userId, title, content, file);
+        boardService.saveArticle(userId,title,content,file);
     }
-
 }

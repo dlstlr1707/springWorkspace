@@ -1,13 +1,15 @@
-package com.example.basicboardv2.service;
+package com.example.basicboardv2prac.service;
 
-import com.example.basicboardv2.mapper.BoardMapper;
-import com.example.basicboardv2.model.Article;
-import com.example.basicboardv2.model.Paging;
+import com.example.basicboardv2prac.mapper.BoardMapper;
+import com.example.basicboardv2prac.model.Article;
+import com.example.basicboardv2prac.model.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,7 +18,7 @@ public class BoardService {
     private final BoardMapper boardMapper;
     private final FileService fileService;
 
-    public List<Article> getBoardArticles(int page, int size){
+    public List<Article> getBoardArticles(int page, int size) {
         int offset = (page - 1) * size;
         return boardMapper.getBoardArticles(
                 Paging.builder()
@@ -32,6 +34,7 @@ public class BoardService {
         if(!file.isEmpty()){
             path = fileService.fileUpload(file);
         }
+        LocalDateTime now = LocalDateTime.now();
 
         boardMapper.saveArticle(
                 Article.builder()
@@ -43,7 +46,7 @@ public class BoardService {
         );
     }
 
-    public int getTotalArticleCnt() {
+    public int getTotalArticleCnt(){
         return boardMapper.getArticleCnt();
     }
 }
