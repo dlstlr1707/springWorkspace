@@ -1,8 +1,10 @@
 package com.example.basicboardv2.controller;
 
 import com.example.basicboardv2.config.jwt.TokenProvider;
+import com.example.basicboardv2.dto.RefreshTokenResponseDTO;
 import com.example.basicboardv2.dto.SignInResponseDTO;
 import com.example.basicboardv2.model.Member;
+import com.example.basicboardv2.service.TokenApiService;
 import com.example.basicboardv2.util.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,31 +21,18 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class TokenApiController {
 
-    private final TokenProvider tokenProvider;
+    private final TokenApiService tokenApiService;
 
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
-        String refreshToken = CookieUtil.getCookieValue(request,"refreshToken");
+        RefreshTokenResponseDTO result = tokenApiService.refreshToken(request, response);
 
-        if(refreshToken != null && tokenProvider.validateToken(refreshToken) == 1) {
-            Member member = tokenProvider.getTokenDetails(refreshToken);
-
-            String newAccessToken = tokenProvider.generateToken(member, Duration.ofHours(2));
-            String newRefreshToken = tokenProvider.generateToken(member, Duration.ofDays(2));
-
-            CookieUtil.addCookie(response,"refreshToken",newRefreshToken,7*24*60*60);
-
-            response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
-
-            return ResponseEntity.ok(
-                    SignInResponseDTO.builder()
-                            .token(newAccessToken)
-                            .build()
-            );
+        if(result.isValidate()){
+            return ResponseEntity.ok(result);
         }else{
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body("Token이 만료되었습니다.");
+                    .body("Refresh Token이 유효하지 않습니다.");
         }
     }
 }

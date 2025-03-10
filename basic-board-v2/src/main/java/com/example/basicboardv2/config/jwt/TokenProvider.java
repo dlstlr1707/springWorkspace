@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.time.Duration;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -30,9 +27,21 @@ public class TokenProvider {
 
     public String generateToken(Member member, Duration expiredAt) {
         Date now = new Date();
+        /*
+        // Calendar 객체 생성
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+
+        // 하루 전 날짜로 설정
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+        // 하루 전 날짜
+        Date yesterday = calendar.getTime();
+         */
         return makeToken(
                 member,
                 new Date(now.getTime() + expiredAt.toMillis())
+                //new Date(yesterday.getTime() + expiredAt.toMillis())
         );
     }
 

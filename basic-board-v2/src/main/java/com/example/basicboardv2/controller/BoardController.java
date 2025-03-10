@@ -23,5 +23,16 @@ public class BoardController {
         return "board-detail";
     }
 
-    //@GetMapping("/update")
+    @GetMapping("/update")
+    public String boardUpdate(
+            @RequestParam("id") Long id,
+            @RequestParam("userId") String userId,
+            @RequestParam("userName") String userName,
+            Model model
+    ){
+        model.addAttribute("id",id);
+        model.addAttribute("userId",userId);
+        model.addAttribute("userName",userName);
+        return "board-update";
+    }
 }

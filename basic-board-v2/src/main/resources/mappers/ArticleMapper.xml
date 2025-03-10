@@ -29,4 +29,17 @@
         FROM article
         WHERE id = #{id};
     </select>
+    <update id="updateArticle" parameterType="map">
+        UPDATE
+            article
+        SET
+            user_id = #{newArticle.userId}, title = #{newArticle.title}, content = #{newArticle.content},
+            updated = #{newArticle.updated}, file_path = #{newArticle.filePath}
+        WHERE
+            id = #{id};
+    </update>
+    <delete id="deleteArticle" parameterType="Long">
+        DELETE FROM article
+        WHERE id = #{id};
+    </delete>
 </mapper>

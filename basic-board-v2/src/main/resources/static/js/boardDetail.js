@@ -6,8 +6,9 @@ $(document).ready(()=>{
         $('#hiddenUserName').val(userInfo.userName);
         loadBoardDetail();
    }).catch((error)=>{
-        console.error('board edit user info error : ',error);
+        console.error('board detail user info error : ',error);
    });
+
 });
 
 let loadBoardDetail = () => {
@@ -31,7 +32,7 @@ let loadBoardDetail = () => {
             if(response.filePath && response.filePath.length > 0 ){
                 let filePath = response.filePath;
                 $('#hiddenFilePath').val(filePath);
-                let fileName = filePath.substring(filePath.lastIndexOf('/') + 1);
+                let fileName = filePath.substring(filePath.lastIndexOf('\\') + 1);
                 let fileElement = `
                             <li>
                                 <a href="/api/board/file/download/${fileName}">${fileName}</a> <!-- 다운로드 링크 -->
@@ -43,6 +44,29 @@ let loadBoardDetail = () => {
         },
         error: (error) => {
             console.error('board detail error :: ', error);
+        }
+    });
+}
+
+let editArticle = () => {
+    let hId = $('#hiddenId').val();
+
+    window.location.href = "/update?id="+hId+"&userId="+$('#hiddenUserId').val()+"&userName="+$('#hiddenUserName').val();
+}
+
+let deleteArticle = () => {
+    let hId = $('#hiddenId').val();
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/board/' + hId,
+        success: (response)=>{
+            alert('게시글이 삭제 되었습니다.');
+            console.log('board delete success !!');
+            window.location.href = "/";
+        },
+        error: (error) => {
+            console.error('board delete error :: ', error);
         }
     });
 }

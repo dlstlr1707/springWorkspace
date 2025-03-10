@@ -8,9 +8,11 @@ let handleTokenExpiration = () => {
           withCredentials: true //쿠키를 포함해서 요청을 보냄
         },
         success: (response)=>{
+            console.log(response);
             localStorage.setItem('accessToken',response.token);
         },
-        error: ()=>{
+        error: (error)=>{
+            console.error(error);
             alert('로그인이 필요합니다. 다시 로그인해주세요.');
             window.location.href = '/member/login'
         }

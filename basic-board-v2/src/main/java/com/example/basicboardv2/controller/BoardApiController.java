@@ -5,9 +5,16 @@ import com.example.basicboardv2.dto.BoardListResponseDTO;
 import com.example.basicboardv2.model.Article;
 import com.example.basicboardv2.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
@@ -16,6 +23,7 @@ import java.util.List;
 public class BoardApiController {
     private final BoardService boardService;
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")  // Role에 따라 권한 적용함 (인가)
     @GetMapping
     public BoardListResponseDTO getBoards(
             @RequestParam(name = "page", defaultValue = "1") int page,
@@ -53,6 +61,32 @@ public class BoardApiController {
         boardService.saveArticle(userId, title, content, file);
     }
 
+    @GetMapping("/file/download/{fileName}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName){
+        Resource resource = boardService.downloadFile(fileName);
 
+        String encoded = URLEncoder.encode(resource.getFilename(), StandardCharsets.UTF_8);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename*=UTF-8''" + encoded)
+                .body(resource);
+    }
+
+    @PutMapping("/{id}")
+    public void updateArticle(
+            @PathVariable("id") long id,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("hiddenUserId") String userId,
+            @RequestParam("file") MultipartFile file
+    ){
+        boardService.updateArticle(id,userId, title, content, file);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteArticle(@PathVariable long id){
+        boardService.deleteArticle(id);
+    }
 
 }
