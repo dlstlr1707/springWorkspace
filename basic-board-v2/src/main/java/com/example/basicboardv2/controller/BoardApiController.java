@@ -1,5 +1,6 @@
 package com.example.basicboardv2.controller;
 
+import com.example.basicboardv2.dto.BoardDetailResponseDTO;
 import com.example.basicboardv2.dto.BoardListResponseDTO;
 import com.example.basicboardv2.model.Article;
 import com.example.basicboardv2.service.BoardService;
@@ -35,6 +36,13 @@ public class BoardApiController {
                 .build();
     }
 
+    @GetMapping("/{id}")
+    public BoardDetailResponseDTO getBoardDetail(@PathVariable long id){
+        return boardService
+                .getBoardDetail(id)
+                .toBoardDetailResponseDTO();
+    }
+
     @PostMapping
     public void saveArticle(
             @RequestParam("title") String title,
@@ -44,5 +52,7 @@ public class BoardApiController {
     ){
         boardService.saveArticle(userId, title, content, file);
     }
+
+
 
 }

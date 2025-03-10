@@ -47,6 +47,7 @@ public class WebSecurityConfig {
                                         new AntPathRequestMatcher("/member/join",HttpMethod.GET.name()),
                                         new AntPathRequestMatcher("/member/login",HttpMethod.GET.name()),
                                         new AntPathRequestMatcher("/write",HttpMethod.GET.name()),
+                                        new AntPathRequestMatcher("/detail",HttpMethod.GET.name()),
 
                                         new AntPathRequestMatcher("/refresh-token", HttpMethod.POST.name()),
                                         new AntPathRequestMatcher("/join",HttpMethod.POST.name()),

@@ -12,4 +12,6 @@ public interface BoardMapper {
     List<Article> getBoardArticles(Paging paging);
 
     int getArticleCnt();
+
+    Article getArticleById(long id);
 }
