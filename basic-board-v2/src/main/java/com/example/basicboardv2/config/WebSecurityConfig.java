@@ -4,6 +4,7 @@ import com.example.basicboardv2.config.filter.TokenAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -42,13 +43,15 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers(
-                                        new AntPathRequestMatcher("/","GET"),
-                                        new AntPathRequestMatcher("/member/join","GET"),
-                                        new AntPathRequestMatcher("/member/login","GET"),
-                                        new AntPathRequestMatcher("/write","GET"),
-                                        new AntPathRequestMatcher("/join","POST"),
-                                        new AntPathRequestMatcher("/login","POST"),
-                                        new AntPathRequestMatcher("/logout","POST")
+                                        new AntPathRequestMatcher("/",HttpMethod.GET.name()),
+                                        new AntPathRequestMatcher("/member/join",HttpMethod.GET.name()),
+                                        new AntPathRequestMatcher("/member/login",HttpMethod.GET.name()),
+                                        new AntPathRequestMatcher("/write",HttpMethod.GET.name()),
+
+                                        new AntPathRequestMatcher("/refresh-token", HttpMethod.POST.name()),
+                                        new AntPathRequestMatcher("/join",HttpMethod.POST.name()),
+                                        new AntPathRequestMatcher("/login",HttpMethod.POST.name()),
+                                        new AntPathRequestMatcher("/logout",HttpMethod.POST.name())
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
