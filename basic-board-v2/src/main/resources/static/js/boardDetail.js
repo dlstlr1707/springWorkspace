@@ -47,7 +47,7 @@ let loadBoardDetail = () => {
         }
     });
 }
-
+/*
 let editArticle = () => {
     let hId = $('#hiddenId').val();
 
@@ -63,6 +63,34 @@ let deleteArticle = () => {
         success: (response)=>{
             alert('게시글이 삭제 되었습니다.');
             console.log('board delete success !!');
+            window.location.href = "/";
+        },
+        error: (error) => {
+            console.error('board delete error :: ', error);
+        }
+    });
+}
+
+ */
+
+// 강사님 코드
+let editArticle = () => {
+    let hId = $('#hiddenId').val();
+
+    window.location.href = "/update/"+hId;
+}
+
+let deleteArticle = () => {
+    let hId = $('#hiddenId').val();
+    let hFilePath = $('#hiddenFilePath').val();
+
+    $.ajax({
+        type: 'DELETE',
+        url: '/api/board/' + hId,
+        data : JSON.stringify({filePath : hFilePath}),
+        contentType : 'application/json; charset=utf-8',
+        success: (response)=>{
+            alert('정상적으로 삭제 되었습니다.');
             window.location.href = "/";
         },
         error: (error) => {

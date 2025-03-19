@@ -1,5 +1,6 @@
 package com.example.basicboardv2.service;
 
+import com.example.basicboardv2.dto.BoardDeleteRequestDTO;
 import com.example.basicboardv2.mapper.BoardMapper;
 import com.example.basicboardv2.model.Article;
 import com.example.basicboardv2.model.Paging;
@@ -57,6 +58,7 @@ public class BoardService {
         return fileService.downloadFile(fileName);
     }
 
+    /*
     public void updateArticle(long id, String userId, String title, String content, MultipartFile file) {
         String path = null;
         if(!file.isEmpty()){
@@ -75,11 +77,47 @@ public class BoardService {
     }
 
     @Transactional
-    public void deleteArticle(long id) {
+    public void deleteBoardById(long id) {
         Article findArticle = boardMapper.getArticleById(id);
         if(findArticle != null){
-            boardMapper.deleteArticle(id);
+            boardMapper.deleteBoardById(id);
             fileService.deleteFile(findArticle.getFilePath());
         }
+    }
+     */
+
+    // 강사님 코드
+    public void updateArticle(
+            long id,
+            String title,
+            String content,
+            MultipartFile file,
+            Boolean fileChanged,
+            String filePath
+    ) {
+        String path = null;
+        if(!file.isEmpty()){
+            path = fileService.fileUpload(file);
+        }
+        if(fileChanged){
+            fileService.deleteFile(path);
+        }else{
+            path = filePath;
+        }
+
+        boardMapper.updateArticle(
+                Article.builder()
+                        .id(id)
+                        .title(title)
+                        .content(content)
+                        .updated(LocalDateTime.now())
+                        .filePath(path)
+                        .build()
+        );
+    }
+
+    public void deleteBoardById(long id, BoardDeleteRequestDTO requestDTO) {
+        fileService.deleteFile(requestDTO.getFilePath());
+        boardMapper.deleteBoardById(id);
     }
 }

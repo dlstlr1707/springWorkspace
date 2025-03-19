@@ -52,7 +52,8 @@ public class WebSecurityConfig {
                                         new AntPathRequestMatcher("/member/login",HttpMethod.GET.name()),
                                         new AntPathRequestMatcher("/write",HttpMethod.GET.name()),
                                         new AntPathRequestMatcher("/detail",HttpMethod.GET.name()),
-                                        new AntPathRequestMatcher("/update",HttpMethod.GET.name()),
+                                        //new AntPathRequestMatcher("/update",HttpMethod.GET.name()),
+                                        new AntPathRequestMatcher("/update/*",HttpMethod.GET.name()),   // 강사님코드
                                         new AntPathRequestMatcher("/access-denied",HttpMethod.GET.name()),
 
                                         new AntPathRequestMatcher("/refresh-token", HttpMethod.POST.name()),

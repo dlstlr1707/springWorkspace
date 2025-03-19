@@ -1,5 +1,6 @@
 package com.example.basicboardv2.controller;
 
+import com.example.basicboardv2.dto.BoardDeleteRequestDTO;
 import com.example.basicboardv2.dto.BoardDetailResponseDTO;
 import com.example.basicboardv2.dto.BoardListResponseDTO;
 import com.example.basicboardv2.model.Article;
@@ -72,7 +73,7 @@ public class BoardApiController {
                 .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename*=UTF-8''" + encoded)
                 .body(resource);
     }
-
+    /*
     @PutMapping("/{id}")
     public void updateArticle(
             @PathVariable("id") long id,
@@ -86,7 +87,27 @@ public class BoardApiController {
 
     @DeleteMapping("/{id}")
     public void deleteArticle(@PathVariable long id){
-        boardService.deleteArticle(id);
+        boardService.deleteBoardById(id);
+    }
+    
+     */
+
+    // 강사님 코드
+    @PutMapping
+    public void updateArticle(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("hiddenUserId") String userId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("hiddenId") Long id,
+            @RequestParam("hiddenFileFlag") Boolean fileChanged,
+            @RequestParam("hiddenFilePath") String filePath
+    ){
+        boardService.updateArticle(id, title, content, file, fileChanged, filePath);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteArticle(@PathVariable long id, @RequestBody BoardDeleteRequestDTO boardDeleteRequestDTO){
+        boardService.deleteBoardById(id,boardDeleteRequestDTO);
+    }
 }

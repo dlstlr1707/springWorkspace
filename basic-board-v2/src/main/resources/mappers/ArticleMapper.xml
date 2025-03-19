@@ -29,16 +29,16 @@
         FROM article
         WHERE id = #{id};
     </select>
-    <update id="updateArticle" parameterType="map">
+    <update id="updateArticle" parameterType="Article">
         UPDATE
             article
         SET
-            user_id = #{newArticle.userId}, title = #{newArticle.title}, content = #{newArticle.content},
-            updated = #{newArticle.updated}, file_path = #{newArticle.filePath}
+            title = #{title}, content = #{content},
+            updated = #{updated}, file_path = #{filePath}
         WHERE
             id = #{id};
     </update>
-    <delete id="deleteArticle" parameterType="Long">
+    <delete id="deleteBoardById" parameterType="Long">
         DELETE FROM article
         WHERE id = #{id};
     </delete>
