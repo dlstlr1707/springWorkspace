@@ -28,11 +28,11 @@ public class BookService {
         return bookRespository.save(book);
     }
 
-    public void removeBookFromCatalog(String isbn){
+    public void removeBookFromCatalog(String isbn) {
         bookRespository.deleteByIsbn(isbn);
     }
 
-    public Book editBookDetails(String isbn, Book book){
+    public Book editBookDetails(String isbn, Book book) {
         return bookRespository.findByIsbn(isbn)
                 .map(
                         existingBook -> {
@@ -48,6 +48,6 @@ public class BookService {
                                     .build();
                             return bookRespository.save(existingBook);
                         }
-                ).orElseGet(()->bookRespository.save(book));
+                ).orElseGet(() -> bookRespository.save(book));
     }
 }
