@@ -16,5 +16,5 @@ public interface AuthClient {
 
     @PostMapping("/refresh")
     RefreshTokenClientResponseDTO refresh(@RequestBody RefreshTokenRequestDTO refreshTokenRequestDTO);
-    
+
 }
