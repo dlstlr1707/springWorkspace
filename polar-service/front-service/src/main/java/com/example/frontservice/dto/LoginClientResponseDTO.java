@@ -9,4 +9,14 @@ public class LoginClientResponseDTO {
     private String userId;
     private String accessToken;
     private String refreshToken;
+
+    public LoginResponseDTO toLoginResponseDTO() {
+        return LoginResponseDTO.builder()
+                .userName(userName)
+                .userId(userId)
+                .accessToken(accessToken)
+                .url(loggedIn? "/webs/home" : "/webs/login")
+                .message(loggedIn? "Login Successful" : "Login Failed")
+                .build();
+    }
 }

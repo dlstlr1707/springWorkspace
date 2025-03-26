@@ -6,7 +6,7 @@ $(document).ready(()=>{
         let password = $('#password').val();
 
         let signInData = {
-            username : userId,
+            userId : userId,
             password : password
         };
 
@@ -17,10 +17,11 @@ $(document).ready(()=>{
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: (response)=>{
+                // 추후 response가 null이 아닌지 체크하는 방어 코드 작성 필요
                 console.log(response);
-                alert('로그인이 성공했습니다.');
+                alert(response.message);
                 localStorage.setItem('accessToken',response.token);
-                window.location.href = '/';
+                window.location.href = response.url;
             },
             error: (error)=>{
                 console.log('오류 발생 : ',error);

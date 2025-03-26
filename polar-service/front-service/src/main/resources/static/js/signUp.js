@@ -25,8 +25,8 @@ $(document).ready(()=>{
             success: (response)=>{
                 console.log(response);
                 alert('회원가입이 성공했습니다.\n로그인 해주세요.');
-                if(response.successed) {
-                    window.location.href = '/member/login';
+                if(response.success) {
+                    window.location.href = response.url;
                 }
             },
             error: (error)=>{

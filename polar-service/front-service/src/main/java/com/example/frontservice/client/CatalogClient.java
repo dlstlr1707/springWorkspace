@@ -16,5 +16,5 @@ public interface CatalogClient {
             @RequestHeader("Authorization") String accessToken,
             @RequestBody CreateCatalogRequestDTO createCatalogRequestDTO
     );
-    
+
 }
