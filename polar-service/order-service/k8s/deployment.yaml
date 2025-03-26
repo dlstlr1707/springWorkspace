@@ -30,4 +30,6 @@ spec:
               value: r2dbc:mysql://polar-mysql:3306/order?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
             - name: CATALOG_SERVICE_URL
               value: http://catalog-service:80
+            - name: SPRING_RABBITMQ_HOST
+              value: polar-rabbitmq
       

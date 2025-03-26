@@ -1,0 +1,9 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: front-service
+
+polar:
+  edge-service-url: ${EDGE_SERVICE_URL:http://localhost:9000}

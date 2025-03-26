@@ -10,6 +10,7 @@ services:
     environment:
       - CATALOG_SERVICE_URL=http://catalog-service:9001
       - ORDER_SERVICE_URL=http://order-service:9002
+      - AUTH_SERVICE_URL=http://auth-service:9004
 
   catalog-service:
     build: 
@@ -37,7 +38,32 @@ services:
     environment:
       - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
       - CATALOG_SERVICE_URL=http://catalog-service:9001
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
   
+  dispatcher-service:
+    build: 
+      context: C:\Users\dlstl\Desktop\workspace\springWorkspace\polar-service\dispatcher-service
+      dockerfile: Dockerfile
+    image: "dispatcher-service"
+    container_name: "dispatcher-service"
+    ports:
+      - 9003:9003
+    environment:
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
+
+  auth-service:
+    build: 
+      context: C:\Users\dlstl\Desktop\workspace\springWorkspace\polar-service\auth-service
+      dockerfile: Dockerfile
+    depends_on:
+      - polar-mysql
+    image: "auth-service"
+    container_name: "auth-service"
+    ports:
+      - 9004:9004
+    environment:
+      - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+
   polar-mysql:
     image: "mysql:latest"
     container_name: "polar-mysql"
@@ -57,5 +83,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=1234
+      - SPRING_RABBITMQ_HOST=polar-rabbitmq
     volumes:
       - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf

@@ -36,7 +36,7 @@ public class BookService {
         return bookRespository.findByIsbn(isbn)
                 .map(
                         existingBook -> {
-                            Book.builder()
+                            Book updateBook = Book.builder()
                                     .id(existingBook.id())
                                     .isbn(isbn)
                                     .title(book.title())
@@ -46,7 +46,7 @@ public class BookService {
                                     .lastModifiedAt(existingBook.lastModifiedAt())
                                     .version(existingBook.version())
                                     .build();
-                            return bookRespository.save(existingBook);
+                            return bookRespository.save(updateBook);
                         }
                 ).orElseGet(() -> bookRespository.save(book));
     }
