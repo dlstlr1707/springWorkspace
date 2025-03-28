@@ -39,7 +39,8 @@ public class OrderService {
     public Flux<Order> consumerOrderDispatchedEvent(Flux<OrderDispatchedMessage> orderDispatchedMessageFlux) {
         return orderDispatchedMessageFlux
                 .flatMap(orderDispatchedMessage -> orderRepository.findById(orderDispatchedMessage.orderId()))
-                .map(this::buildDispatchedOrder);
+                .map(this::buildDispatchedOrder)
+                .flatMap(orderRepository::save);
     }
 
     private void publishOrderAcceptedEvent(Order order) {
@@ -69,6 +70,7 @@ public class OrderService {
     }
 
     private static Order buildAcceptedOrder(Book book, int quantity) {
+        System.out.println("주문 승인");
         return Order.builder()
                 .bookIsbn(book.isbn())
                 .bookName(book.title() + "-" + book.author())
@@ -79,6 +81,7 @@ public class OrderService {
     }
 
     private static Order buildRejectedOrder(String isbn, int quantity) {
+        System.out.println("주문 거부");
         // 요청받은 책 없을때
         return Order.builder()
                 .bookIsbn(isbn)

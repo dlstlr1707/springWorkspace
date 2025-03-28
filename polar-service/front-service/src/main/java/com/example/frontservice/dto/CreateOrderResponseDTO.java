@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateCatalogResponseDTO {
+public class CreateOrderResponseDTO {
     private int statusCode;
     private String message;
 }

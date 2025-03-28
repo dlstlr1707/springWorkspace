@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CreateCatalogResponseDTO {
-    private int statusCode;
-    private String message;
+public class DisplayCatalogListResponseDTO {
+    private Iterable<?> catalogList;
 }

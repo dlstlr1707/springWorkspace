@@ -36,7 +36,7 @@ services:
     ports:
       - 9002:9002
     environment:
-      - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+      - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/order
       - CATALOG_SERVICE_URL=http://catalog-service:9001
       - SPRING_RABBITMQ_HOST=polar-rabbitmq
   
@@ -62,7 +62,18 @@ services:
     ports:
       - 9004:9004
     environment:
-      - SPRING_R2DBC_URL=r2dbc:mysql://polar-mysql:3306/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_URL=jdbc:mysql://polar-mysql:3306/auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+
+  front-service:
+    build: 
+      context: C:\Users\dlstl\Desktop\workspace\springWorkspace\polar-service\front-service
+      dockerfile: Dockerfile
+    image: "front-service"
+    container_name: "front-service"
+    ports:
+      - 9005:9005
+    environment:
+      - EDGE_SERVICE_URL=http://edge-service:9000
 
   polar-mysql:
     image: "mysql:latest"

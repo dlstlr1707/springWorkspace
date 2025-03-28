@@ -1,8 +1,10 @@
 package com.example.frontservice.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class RefreshTokenClientResponseDTO {
     private int status;
     private String accessToken;

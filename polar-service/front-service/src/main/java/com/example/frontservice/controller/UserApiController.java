@@ -3,6 +3,7 @@ package com.example.frontservice.controller;
 import com.example.frontservice.dto.*;
 import com.example.frontservice.service.UserService;
 import com.example.frontservice.util.CookieUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,4 +37,5 @@ public class UserApiController {
 
         return logined.toLoginResponseDTO();
     }
+
 }

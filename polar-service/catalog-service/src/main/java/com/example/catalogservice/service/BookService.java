@@ -2,6 +2,7 @@ package com.example.catalogservice.service;
 
 import com.example.catalogservice.domain.Book;
 import com.example.catalogservice.domain.BookRespository;
+import com.example.catalogservice.dto.DisplayCatalogListResponseDTO;
 import com.example.catalogservice.exception.BookAlreadyExistsException;
 import com.example.catalogservice.exception.BookNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +13,11 @@ import org.springframework.stereotype.Service;
 public class BookService {
     private final BookRespository bookRespository;
 
-    public Iterable<Book> viewBookList() {
-        return bookRespository.findAll();
+    public DisplayCatalogListResponseDTO viewBookList() {
+
+        return DisplayCatalogListResponseDTO.builder()
+                .catalogList(bookRespository.findAll())
+                .build();
     }
 
     public Book viewBook(String isbn) {

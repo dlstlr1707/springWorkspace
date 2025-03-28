@@ -6,16 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/webs")
-public class UserController {
+public class HomeController {
 
-    @GetMapping("/join")
-    public String join() {
-        return "sign-up";
+    @GetMapping("/home")
+    public String home() {
+        return "home";
     }
-
-    @GetMapping("/login")
-    public String login() {
-        return "sign-in";
-    }
-
 }

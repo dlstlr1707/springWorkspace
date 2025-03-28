@@ -20,7 +20,7 @@ $(document).ready(()=>{
                 // 추후 response가 null이 아닌지 체크하는 방어 코드 작성 필요
                 console.log(response);
                 alert(response.message);
-                localStorage.setItem('accessToken',response.token);
+                localStorage.setItem('accessToken',response.accessToken);
                 window.location.href = response.url;
             },
             error: (error)=>{

@@ -1,6 +1,7 @@
 package com.example.catalogservice.controller;
 
 import com.example.catalogservice.domain.Book;
+import com.example.catalogservice.dto.DisplayCatalogListResponseDTO;
 import com.example.catalogservice.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ public class BookApiController {
     private final BookService bookService;
 
     @GetMapping
-    public Iterable<Book> getBooks(){
+    public DisplayCatalogListResponseDTO getBooks(){
         return bookService.viewBookList();
     }
 
